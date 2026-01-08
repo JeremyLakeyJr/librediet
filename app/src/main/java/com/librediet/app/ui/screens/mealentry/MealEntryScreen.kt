@@ -166,6 +166,7 @@ fun MealEntryScreen(
                 onCarbsChanged = viewModel::updateCarbs,
                 onFatChanged = viewModel::updateFat,
                 onFiberChanged = viewModel::updateFiber,
+                onSodiumChanged = viewModel::updateSodium,
                 onNotesChanged = viewModel::updateNotes,
                 onSelectRecentFood = viewModel::selectFood,
                 modifier = Modifier.padding(paddingValues)
@@ -186,6 +187,7 @@ private fun MealEntryContent(
     onCarbsChanged: (String) -> Unit,
     onFatChanged: (String) -> Unit,
     onFiberChanged: (String) -> Unit,
+    onSodiumChanged: (String) -> Unit,
     onNotesChanged: (String) -> Unit,
     onSelectRecentFood: (FoodItem) -> Unit,
     modifier: Modifier = Modifier
@@ -342,6 +344,19 @@ private fun MealEntryContent(
                             modifier = Modifier.weight(1f)
                         )
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Sodium
+                    OutlinedTextField(
+                        value = uiState.sodium,
+                        onValueChange = onSodiumChanged,
+                        label = { Text("Sodium") },
+                        suffix = { Text("mg") },
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        singleLine = true
+                    )
                 }
             }
         }

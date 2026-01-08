@@ -118,7 +118,6 @@ fun HomeScreen(
                     summary = uiState.nutritionSummary,
                     goals = uiState.nutritionGoals,
                     meals = uiState.todaysMeals,
-                    onEditMeal = { /* TODO */ },
                     onDeleteMeal = { viewModel.deleteMeal(it) },
                     modifier = Modifier.padding(paddingValues)
                 )
@@ -132,7 +131,6 @@ private fun HomeContent(
     summary: NutritionSummary,
     goals: NutritionGoals,
     meals: List<Meal>,
-    onEditMeal: (Meal) -> Unit,
     onDeleteMeal: (Meal) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -175,7 +173,6 @@ private fun HomeContent(
                     items(categoryMeals, key = { it.id }) { meal ->
                         MealCard(
                             meal = meal,
-                            onEdit = { onEditMeal(meal) },
                             onDelete = { onDeleteMeal(meal) }
                         )
                     }

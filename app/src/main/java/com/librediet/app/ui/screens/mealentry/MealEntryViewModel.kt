@@ -31,6 +31,7 @@ data class MealEntryUiState(
     val fat: String = "",
     val fiber: String = "",
     val sugar: String = "",
+    val sodium: String = "",
     val notes: String = "",
     val selectedFood: FoodItem? = null,
     val recentFoods: List<FoodItem> = emptyList(),
@@ -126,6 +127,10 @@ class MealEntryViewModel @Inject constructor(
         _uiState.update { it.copy(fiber = fiber) }
     }
 
+    fun updateSodium(sodium: String) {
+        _uiState.update { it.copy(sodium = sodium) }
+    }
+
     fun updateNotes(notes: String) {
         _uiState.update { it.copy(notes = notes) }
     }
@@ -140,7 +145,8 @@ class MealEntryViewModel @Inject constructor(
                 carbs = food.carbohydrates.toString(),
                 fat = food.fat.toString(),
                 fiber = food.fiber.toString(),
-                sugar = food.sugar.toString()
+                sugar = food.sugar.toString(),
+                sodium = food.sodium.toString()
             )
         }
     }
@@ -172,6 +178,7 @@ class MealEntryViewModel @Inject constructor(
                 val fat = state.fat.toFloatOrNull() ?: 0f
                 val fiber = state.fiber.toFloatOrNull() ?: 0f
                 val sugar = state.sugar.toFloatOrNull() ?: 0f
+                val sodium = state.sodium.toFloatOrNull() ?: 0f
 
                 // Save food item if it's new
                 val foodItemId = state.selectedFood?.id ?: run {
@@ -183,6 +190,7 @@ class MealEntryViewModel @Inject constructor(
                         fat = fat / quantity,
                         fiber = fiber / quantity,
                         sugar = sugar / quantity,
+                        sodium = sodium / quantity,
                         isCustom = true
                     )
                     foodRepository.insertFoodItem(newFood)
@@ -201,7 +209,7 @@ class MealEntryViewModel @Inject constructor(
                     fat = fat,
                     fiber = fiber,
                     sugar = sugar,
-                    sodium = 0f, // TODO: Add sodium input
+                    sodium = sodium,
                     timestamp = LocalDateTime.now(),
                     notes = state.notes.takeIf { it.isNotBlank() }
                 )

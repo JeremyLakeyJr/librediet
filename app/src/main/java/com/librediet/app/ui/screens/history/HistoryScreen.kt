@@ -65,10 +65,10 @@ fun HistoryScreen(
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 actions = {
-                    IconButton(onClick = { /* TODO: Show date picker */ }) {
+                    IconButton(onClick = { viewModel.goToToday() }) {
                         Icon(
                             imageVector = Icons.Default.CalendarMonth,
-                            contentDescription = "Select Date",
+                            contentDescription = "Go to Today",
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -224,7 +224,6 @@ private fun HistoryContent(
                 items(categoryMeals, key = { it.id }) { meal ->
                     MealCard(
                         meal = meal,
-                        onEdit = { /* TODO */ },
                         onDelete = { onDeleteMeal(meal) }
                     )
                 }
